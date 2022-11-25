@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Javascript Core Language Path</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-neutral-100 relative">
+    <!-- Add Expense Dialog -->
+    <dialog id="addExpenseDialog" class="rounded">
+      <h5 class="text-2xl font-bold mb-2">Add Expense</h5>
+      <form class="space-y-4">
+        <label for="expenseName">
+          <span class="text-sm">Expense Name</span>
+          <input
+            type="text"
+            id="expenseName"
+            class="w-full border border-neutral-300 rounded p-2"
+            required
+          />
+        </label>
+        <label for="expenseAmount">
+          <span class="text-sm">Expense Amount</span>
+          <input
+            type="number"
+            id="expenseAmount"
+            class="w-full border border-neutral-300 rounded p-2"
+            required
+          />
+        </label>
+        <label for="expenseDate">
+          <span class="text-sm">Expense Date</span>
+          <input
+            type="date"
+            id="expenseDate"
+            class="w-full border border-neutral-300 rounded p-2"
+            required
+          />
+        </label>
+        <div class="flex gap-4 w-full justify-end">
+          <button
+            type="button"
+            onclick="closeAddExpenseDialog()"
+            class="px-4 py-2 hover:underline"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onclick="addExpense()"
+            class="px-4 py-2 bg-black text-white rounded hover:bg-black/90"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- Main Content -->
+    <nav class="flex w-full justify-between p-4 items-center">
+      <h1 class="sm:text-2xl text-xl font-bold">Allen Expense Tracker</h1>
+      <ul class="flex items-center" id="">
+        <li class="mr-4">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="mr-4">
+          <button
+            onclick="openAddExpenseDialog()"
+            class="px-4 py-2 bg-black text-white rounded hover:bg-black/90"
+          >
+            Add Expense
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <main class="p-4">
+      <section class="flex flex-col w-full">
+        <div class="flex justify-between">
+          <h4 class="sm:text-2xl text-xl font-bold">
+            Total Expenses for the month of:
+          </h4>
+          <select
+            name="month"
+            id="selectMonth"
+            onchange="selectMonthChange()"
+            class="px-2 py-1 rounded shadow-sm border border-neutral-300 focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
+          >
+            <option value="Jan">January</option>
+            <option value="Feb">February</option>
+            <option value="Mar">March</option>
+            <option value="Apr">April</option>
+            <option value="May">May</option>
+            <option value="Jun">June</option>
+            <option value="Jul">July</option>
+            <option value="Aug">August</option>
+            <option value="Sep">September</option>
+            <option value="Oct">October</option>
+            <option value="Nov">November</option>
+            <option value="Dec">December</option>
+          </select>
+        </div>
+        <h2 class="text-red-500 font-bold text-3xl" id="totalMonthExpenses">
+          $0
+        </h2>
+      </section>
+
+      <section id="expensesContainer">
+        <ul class="mt-4 space-y-4" id="expensesList"></ul>
+      </section>
+    </main>
+
+    <script src="index.js"></script>
+    <script src="expense.js"></script>
+  </body>
+</html>

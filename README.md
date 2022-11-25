@@ -2,8 +2,6 @@
 
 ### Getting Started
 
-Clone the repository and look at the source code.
-
 In the `index.js` file you can see the `load()` function that initiates the application.
 
 This application reflects everything that I learned throughout the `Javascript Core Language Path`.
@@ -27,3 +25,7 @@ Navigate to the `Add Expense` button in the top right corner of the screen.
 You will fill up a form with the information of the expense you like to enter. After filling up and submitting the form you will the total amount of expenses you consume in the month you selected in the dropdown.
 
 That's all thank you, and happy tracking!
+
+### Technologies used
+
+It's a simple application and it only uses vanilla Javascript with HTML and TailwindCSS

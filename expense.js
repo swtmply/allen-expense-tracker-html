@@ -4,23 +4,23 @@ function addExpense() {
   const expenseAmount = document.getElementById("expenseAmount").value;
   const expenseDate = document.getElementById("expenseDate").value;
 
-  // remove empty state from the DOM
-  if (expenses[selectedMonth].length === 0) {
-    expensesContainer.removeChild(emptyState);
-  }
+  // get the month of date input
+  const month = new Date(expenseDate).toLocaleDateString("en-US", {
+    month: "short",
+  });
 
-  addListItem(expenseName, expenseAmount, expenseDate);
-
-  expenses[selectedMonth].push({
+  // add to expense to the month array
+  expenses[month].push({
     name: expenseName ?? "No name",
     amount: parseInt(expenseAmount) ?? 0,
     date: expenseDate ?? new Date(),
   });
 
-  calculateTotalMonthExpenses();
+  revalidate();
   closeAddExpenseDialog();
 }
 
+// add list item to the ul
 function addListItem(name, amount, date) {
   const listItem = document.createElement("li");
   listItem.classList.add(

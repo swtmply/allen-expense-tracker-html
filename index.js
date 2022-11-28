@@ -22,30 +22,6 @@ let expenses = {
   Dec: [],
 };
 
-function load() {
-  // clear list
-  expensesList.innerHTML = "";
-  totalMonthExpensesElement.innerText = `$0`;
-
-  // show empty state if no expenses
-  if (expenses[selectedMonth].length === 0) {
-    emptyState.classList.add(
-      ..."flex justify-center items-center my-4".split(" ")
-    );
-    emptyState.innerHTML = `
-        <p class="text-lg">Wow... such empty 🤣</p>
-    `;
-    expensesContainer.appendChild(emptyState);
-  }
-
-  calculateTotalMonthExpenses();
-
-  // add list items
-  expenses[selectedMonth].forEach(({ name, amount, date }) => {
-    addListItem(name, amount, date);
-  });
-}
-
 // dialog actions
 function closeAddExpenseDialog() {
   addExpenseDialog.close();
@@ -55,20 +31,48 @@ function openAddExpenseDialog() {
   addExpenseDialog.showModal();
 }
 
-// month select
+// month selection function
 function selectMonthChange() {
   selectedMonth = selectMonth.value;
-
-  load();
+  revalidate();
 }
 
-function calculateTotalMonthExpenses() {
+// revalidate expenses
+function revalidate() {
+  // reset to default values
+  expensesList.innerHTML = "";
+  totalMonthExpensesElement.innerText = `$0`;
+
+  // check the select month if it has no expenses and show the empty state
+  console.log(expenses[selectedMonth], expenses[selectedMonth].length);
+
+  if (expenses[selectedMonth].length <= 0) {
+    // show empty state
+    emptyState.classList.add(
+      ..."flex justify-center items-center my-4".split(" ")
+    );
+    emptyState.innerHTML = `
+        <p class="text-lg">Wow... such empty 🤣</p>
+    `;
+    expensesContainer.appendChild(emptyState);
+  } else {
+    // remove the empty state
+    expensesContainer.removeChild(emptyState);
+  }
+
+  // add list items
+  expenses[selectedMonth].forEach(({ name, amount, date }) => {
+    addListItem(name, amount, date);
+  });
+
+  // calculate total month expenses
   const totalMonthExpenses = Object.values(expenses[selectedMonth]).reduce(
     (t, { amount }) => t + amount,
     0
   );
 
+  // update total month expenses
   totalMonthExpensesElement.innerText = `$${totalMonthExpenses}`;
 }
 
-load();
+revalidate();

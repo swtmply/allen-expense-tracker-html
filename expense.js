@@ -3,7 +3,7 @@ function addExpense() {
   const expenseName = document.getElementById("expenseName").value;
   const expenseAmount = document.getElementById("expenseAmount").value;
   const expenseDate = document.getElementById("expenseDate").value;
-
+  const expenseCategory = document.getElementById("expenseCategory").value;
   // get the month of date input
   const month = new Date(expenseDate).toLocaleDateString("en-US", {
     month: "short",
@@ -14,6 +14,7 @@ function addExpense() {
     name: expenseName ?? "No name",
     amount: parseInt(expenseAmount) ?? 0,
     date: expenseDate ?? new Date(),
+    category: expenseCategory,
   });
 
   revalidate();

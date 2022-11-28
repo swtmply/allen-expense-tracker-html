@@ -21,6 +21,14 @@ let expenses = {
   Nov: [],
   Dec: [],
 };
+let categories = [
+  "food",
+  "clothing",
+  "bills",
+  "entertainment",
+  "transport",
+  "other",
+];
 
 // dialog actions
 function closeAddExpenseDialog() {

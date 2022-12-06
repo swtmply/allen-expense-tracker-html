@@ -5,14 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Javascript Core Language Path</title>
+    <link
+      rel="stylesheet"
+      href="https://kit-pro.fontawesome.com/releases/v6.1.1/css/pro.css"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body class="bg-neutral-100 relative">
     <!-- Add Expense Dialog -->
-    <dialog id="addExpenseDialog" class="rounded">
-      <h5 class="text-2xl font-bold mb-2">Add Expense</h5>
-      <form class="space-y-4">
+    <dialog id="expenseFormDialog" class="rounded">
+      <h4 class="text-2xl font-bold mb-2">Add Expense</h4>
+      <!-- Expense Form -->
+      <form id="expenseForm" class="flex flex-col gap-4">
         <label for="expenseName">
           <span class="text-sm">Expense Name</span>
           <input
@@ -24,17 +29,12 @@
         </label>
         <label for="expenseCategory">
           <span class="text-sm">Expense Category</span>
-          <select
-            class="w-full border border-neutral-300 rounded p-2"
+          <input
+            type="text"
             id="expenseCategory"
-          >
-            <option value="food">Food</option>
-            <option value="clothing">Clothing</option>
-            <option value="bills">Bills</option>
-            <option value="entertainment">Entertainment</option>
-            <option value="transportation">Transport</option>
-            <option value="other">Other</option>
-          </select>
+            class="w-full border border-neutral-300 rounded p-2"
+            required
+          />
         </label>
         <label for="expenseAmount">
           <span class="text-sm">Expense Amount</span>
@@ -54,19 +54,11 @@
             required
           />
         </label>
-
         <div class="flex gap-4 w-full justify-end">
+          <button type="button" id="cancelButton">Cancel</button>
           <button
-            type="button"
-            onclick="closeAddExpenseDialog()"
-            class="px-4 py-2 hover:underline"
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            onclick="addExpense()"
-            class="px-4 py-2 bg-black text-white rounded hover:bg-black/90"
+            type="submit"
+            class="bg-black px-6 py-2 text-white rounded-md hover:bg-black/90 duration-50"
           >
             Submit
           </button>
@@ -74,77 +66,97 @@
       </form>
     </dialog>
 
-    <!-- Main Content -->
-    <nav class="flex w-full justify-between p-4 items-center">
-      <h1 class="sm:text-2xl text-xl font-bold">Allen Expense Tracker</h1>
-      <ul class="flex items-center" id="">
-        <li class="mr-4">
-          <a href="index.html">Home</a>
-        </li>
-        <li class="mr-4">
+    <!-- Header -->
+    <header class="flex justify-between p-4 mb-8">
+      <img src="./icons/moneyup_logo_lg.svg" alt="MoneyUP Logo" />
+      <nav>
+        <ul class="flex gap-4 items-center">
+          <li>
+            <a href="#">Home</a>
+          </li>
+          <li>
+            <a href="#">Budget</a>
+          </li>
           <button
-            onclick="openAddExpenseDialog()"
-            class="px-4 py-2 bg-black text-white rounded hover:bg-black/90"
+            onclick="document.getElementById('expenseFormDialog').showModal()"
+            class="bg-black px-6 py-2 text-white rounded-md hover:bg-black/90 duration-50"
           >
-            Add Expense
+            <span>Add Expense</span>
           </button>
-        </li>
-      </ul>
-    </nav>
+        </ul>
+      </nav>
+    </header>
 
-    <main class="p-4">
-      <!-- Charts -->
-      <div class="flex flex-col space-y-4 mb-4">
-        <h4 class="sm:text-2xl text-xl font-bold">Yearly Expense Breakdown</h4>
-        <div
-          class="w-full aspect-video bg-white p-2 rounded shadow-md flex items-center"
+    <!-- Main -->
+    <main class="px-4">
+      <section class="flex items-center justify-between">
+        <h4 class="font-bold text-2xl">Expense Summary</h4>
+        <!-- Month Selection -->
+        <select
+          id="selectedMonth"
+          class="bg-gray-50 border-2 border-gray-300 text-gray-900 text-sm focus:border-black rounded-md block w-40 p-2.5"
         >
-          <canvas id="barExpensesChart" class="w-full"></canvas>
-        </div>
-        <h4 class="sm:text-2xl text-xl font-bold">Monthly Expense Breakdown</h4>
-        <div
-          class="w-full aspect-video bg-white p-2 rounded shadow-md flex items-center"
-        >
-          <canvas id="pieExpensesChart" class="w-full"></canvas>
-        </div>
-      </div>
-
-      <section class="flex flex-col w-full">
-        <div class="flex justify-between">
-          <h4 class="sm:text-2xl text-xl font-bold">
-            Total Expenses for the month of:
-          </h4>
-          <select
-            name="month"
-            id="selectMonth"
-            onchange="selectMonthChange()"
-            class="px-2 py-1 rounded shadow-sm border border-neutral-300 focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
-          >
-            <option value="Jan">January</option>
-            <option value="Feb">February</option>
-            <option value="Mar">March</option>
-            <option value="Apr">April</option>
-            <option value="May">May</option>
-            <option value="Jun">June</option>
-            <option value="Jul">July</option>
-            <option value="Aug">August</option>
-            <option value="Sep">September</option>
-            <option value="Oct">October</option>
-            <option value="Nov">November</option>
-            <option value="Dec">December</option>
-          </select>
-        </div>
-        <h2 class="text-red-500 font-bold text-3xl" id="totalMonthExpenses">
-          $0
-        </h2>
+          <option value="jan">January</option>
+          <option value="feb">February</option>
+          <option value="mar">March</option>
+          <option value="apr">April</option>
+          <option value="may">May</option>
+          <option value="jun">June</option>
+          <option value="jul">July</option>
+          <option value="aug">August</option>
+          <option value="sep">September</option>
+          <option value="oct">October</option>
+          <option value="nov">November</option>
+          <option value="dec">December</option>
+        </select>
       </section>
 
-      <section id="expensesContainer">
-        <ul class="mt-4 space-y-4" id="expensesList"></ul>
+      <!-- Contents -->
+      <section class="grid grid-cols-9 gap-4 my-4">
+        <div class="gap-4 col-span-6 grid grid-cols-6">
+          <div class="flex flex-col gap-2 col-span-3">
+            <h4 class="font-semibold">Yearly Expenses Breakdown</h4>
+            <div class="bg-white shadow-lg rounded-md p-4 space-y-4">
+              <div class="w-full flex justify-between items-center">
+                <p class="font-semibold">Total:</p>
+                <h6 class="font-bold text-2xl">
+                  ₱ <span id="yearlyTotal">0</span>.00
+                </h6>
+              </div>
+              <!-- Bar Graph -->
+              <canvas class="min-h-[250px]" id="yearlyExpenses"></canvas>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2 col-span-3">
+            <h4 class="font-semibold">Monthly Expenses Breakdown</h4>
+            <div class="bg-white shadow-lg rounded-md p-4 space-y-4">
+              <div class="w-full flex justify-between items-center">
+                <p class="font-semibold">Total:</p>
+                <h6 class="font-bold text-2xl">
+                  ₱ <span id="monthlyTotal">0</span>.00
+                </h6>
+              </div>
+              <!-- Pie Chart -->
+              <canvas class="max-h-[250px]" id="monthlyExpenses"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-span-3 flex flex-col gap-2">
+          <div class="flex justify-between items-center">
+            <h4 class="font-semibold">Daily Expenses</h4>
+            <div class="flex items-center gap-2">
+              <i class="fas fa-list text-sm p-1 rounded"></i>
+              <i class="fas fa-grid-2 text-sm p-1 rounded"></i>
+            </div>
+          </div>
+          <!-- Daily Expenses List -->
+          <ul id="expenseList" class="flex flex-col gap-2"></ul>
+        </div>
       </section>
     </main>
 
-    <script src="index.js"></script>
-    <script src="expense.js"></script>
+    <!-- Javascripts -->
+    <script type="module" src="./javascript/index.js"></script>
+    <script type="module" src="./javascript/charts.js"></script>
   </body>
 </html>

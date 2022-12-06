@@ -63,6 +63,7 @@ function addToExpenses(expense) {
 
   // Save the expenses to local storage
   localStorage.setItem("expenses", JSON.stringify(expenses));
+  createExpenseList(expenses);
 }
 
 function addExpense() {

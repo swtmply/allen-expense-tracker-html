@@ -1,4 +1,4 @@
-# Allen Expense Tracker
+# Moneyup Expense Tracker
 
 ### Getting Started
 

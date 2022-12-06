@@ -2,7 +2,7 @@
 
 ### Getting Started
 
-In the `index.js` file you can see the `load()` function that initiates the application.
+In the `index.js` file you can see the `initExpenses()` function that initiates the application.
 
 This application reflects everything that I learned throughout the `Javascript Core Language Path`.
 
@@ -13,18 +13,28 @@ The application uses the following:
 - Javascript Objects
 - Javascript Arrays
 - Javascript Functions
+- Javascript Modules
 
 ### How to use
 
-Simply clone or the download the repository and run the `index.html` file in your local machine.
+Simply clone or the download the repository and run the `index.html` file in your local machine. If you are using VSCode just install the `Live Server Extension`.
 
 Navigate to the `Add Expense` button in the top right corner of the screen.
 
-⚠ `NOTE`: Select a month first before adding an expense becuase it will be added to the selected month in the dropdown.
+You will fill up a form with the information of the expense you like to enter. After filling up and submitting the form you will see the application will update.
 
-You will fill up a form with the information of the expense you like to enter. After filling up and submitting the form you will the total amount of expenses you consume in the month you selected in the dropdown.
+You can select a month of your choice in the upper right corner and monitor how and where you spend money on frequently.
 
 That's all thank you, and happy tracking!
+
+### Improvements that I'm currently working on
+
+- Custom categories
+- Custom colors
+- Budget Page
+  - Monthly budget
+  - Monthly Planning
+- Or you have something to say? Just contact me wherever possible 🥺
 
 ### Technologies used
 

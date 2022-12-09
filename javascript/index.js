@@ -66,7 +66,7 @@ function addToExpenses(expense) {
   createExpenseList(expenses);
 }
 
-function addExpense() {
+export function addExpense() {
   const expenseForm = document.forms["expenseForm"];
 
   // Make an object through the inputs from user
@@ -121,8 +121,10 @@ function createExpenseList(expenses) {
     expenseList.appendChild(expenseItem);
   });
 
-  calculateMonthlyExpenses(expensesForMonth);
-  calculateYearlyExpenses(expenses);
+  if (monthlyExpenses && yearlyExpenses) {
+    calculateMonthlyExpenses(expensesForMonth);
+    calculateYearlyExpenses(expenses);
+  }
 }
 
 function calculateMonthlyExpenses(expenses) {

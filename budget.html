@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MoneyUP - Budget</title>
+    <link
+      rel="stylesheet"
+      href="https://kit-pro.fontawesome.com/releases/v6.1.1/css/pro.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body class="bg-neutral-100 relative">
+    <dialog id="transactionFormDialog" class="rounded">
+      <h4 class="text-2xl font-bold mb-2">Add Transaction</h4>
+      <!-- Transaction Form -->
+      <form id="transactionForm" class="flex flex-col gap-4">
+        <label for="transactionName">
+          <span class="text-sm">Name</span>
+          <input
+            type="text"
+            id="transactionName"
+            class="w-full border border-neutral-300 rounded p-2"
+            required
+          />
+        </label>
+        <label for="transactionType">
+          <span class="text-sm">Type</span>
+          <select
+            id="transactionType"
+            class="w-full border border-neutral-300 rounded p-2"
+            required
+          >
+            <option selected value="expenses">Expense</option>
+            <option value="incomes">Income</option>
+          </select>
+        </label>
+        <label for="transactionCategory">
+          <span class="text-sm">Category</span>
+          <select
+            id="transactionCategory"
+            class="w-full border border-neutral-300 rounded p-2"
+            required
+          >
+            <option selected value="Food">Food</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Bills">Bills</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Transportation">Transportation</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+        <label for="transactionAmount">
+          <span class="text-sm">Amount</span>
+          <input
+            type="number"
+            id="transactionAmount"
+            class="w-full border border-neutral-300 rounded p-2"
+            required
+          />
+        </label>
+        <label for="transactionDate">
+          <span class="text-sm">Date</span>
+          <input
+            type="date"
+            id="transactionDate"
+            class="w-full border border-neutral-300 rounded p-2"
+            required
+          />
+        </label>
+        <div class="flex gap-4 w-full justify-end">
+          <button type="button" id="cancelButton">Cancel</button>
+          <button
+            type="submit"
+            class="bg-black px-6 py-2 text-white rounded-md hover:bg-black/90 duration-50"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- Header -->
+    <header class="flex justify-between p-4 mb-8">
+      <img src="./icons/moneyup_logo_lg.svg" alt="MoneyUP Logo" />
+      <nav>
+        <ul class="flex gap-4 items-center">
+          <li>
+            <a href="index.html">Home</a>
+          </li>
+          <li>
+            <a href="#">Payments</a>
+          </li>
+          <li>
+            <a
+              class="relative before:absolute before:-bottom-1 before:w-6 before:h-0.5 before:bg-black"
+              href="budget.html"
+              >Budget</a
+            >
+          </li>
+          <button
+            onclick="document.getElementById('transactionFormDialog').showModal()"
+            class="bg-black px-6 py-2 text-white rounded-md hover:bg-black/90 duration-50"
+          >
+            <span>Add Transaction</span>
+          </button>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Main -->
+    <main class="px-4">
+      <section class="flex items-center justify-between">
+        <h4 class="font-bold text-2xl">Monthly Budget</h4>
+        <select
+          id="selectedMonth"
+          class="bg-gray-50 border-2 border-gray-300 text-gray-900 text-sm focus:border-black rounded-md block w-40 p-2.5"
+        >
+          <option value="jan">January</option>
+          <option value="feb">February</option>
+          <option value="mar">March</option>
+          <option value="apr">April</option>
+          <option value="may">May</option>
+          <option value="jun">June</option>
+          <option value="jul">July</option>
+          <option value="aug">August</option>
+          <option value="sep">September</option>
+          <option value="oct">October</option>
+          <option value="nov">November</option>
+          <option value="dec">December</option>
+        </select>
+      </section>
+      <ul id="transactionList" class="flex flex-col gap-2"></ul>
+    </main>
+
+    <!-- Javascripts -->
+    <script type="module" src="./scripts/budget/index.js"></script>
+  </body>
+</html>

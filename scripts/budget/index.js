@@ -4,6 +4,7 @@ import {
   setCurrentMonth,
   setTransactions,
 } from "../index.js";
+import { createCharts } from "./charts.js";
 import { addToTransactionList, createtransactionList } from "./transactions.js";
 
 const transactionFormDialog = document.getElementById("transactionFormDialog");
@@ -37,8 +38,10 @@ export const addtransaction = (e) => {
   // Save the transactions to local storage
   localStorage.setItem("transactions", JSON.stringify(transactions));
 
-  // TODO update DOM
+  // update DOM
   addToTransactionList(transaction);
+  createCharts(transactions, currentMonth);
+
   transactionForm.reset();
   closeDialog();
 };
@@ -50,6 +53,7 @@ export const onMonthSelectChange = () => {
     [...transactions.expenses, ...transactions.incomes],
     currentMonth
   );
+  createCharts(transactions, currentMonth);
 };
 
 cancelButton.addEventListener("click", closeDialog);
@@ -72,6 +76,7 @@ function init() {
       [...transactions.expenses, ...transactions.incomes],
       currentMonth
     );
+    createCharts(transactions, currentMonth);
   }
 }
 

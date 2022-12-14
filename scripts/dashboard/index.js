@@ -1,10 +1,11 @@
 import { createExpenseList, addToExpenseList } from "./expenses.js";
 import { createCharts } from "./charts.js";
-
-export let expenses = [];
-export let currentMonth = new Date()
-  .toLocaleString("default", { month: "short" })
-  .toLocaleLowerCase();
+import {
+  currentMonth,
+  transactions,
+  setCurrentMonth,
+  setTransactions,
+} from "../index.js";
 
 const expenseFormDialog = document.getElementById("expenseFormDialog");
 const selectedMonth = document.getElementById("selectedMonth");
@@ -26,26 +27,27 @@ export const addExpense = (e) => {
     name: expenseForm.elements["expenseName"].value,
     amount: expenseForm.elements["expenseAmount"].value,
     category: expenseForm.elements["expenseCategory"].value,
+    type: "expenses",
   };
 
   // Add the expense to the expense list
-  expenses.push(expense);
+  transactions.expenses.push(expense);
 
   // Save the expenses to local storage
-  localStorage.setItem("expenses", JSON.stringify(expenses));
+  localStorage.setItem("transactions", JSON.stringify(transactions));
 
   // update DOM
   addToExpenseList(expense);
-  createCharts(expenses, currentMonth);
+  createCharts(transactions.expenses, currentMonth);
   expenseForm.reset();
   closeDialog();
 };
 
 export const onMonthSelectChange = () => {
-  currentMonth = selectedMonth.value;
+  setCurrentMonth(selectedMonth.value);
 
-  createExpenseList(expenses, currentMonth);
-  createCharts(expenses, currentMonth);
+  createExpenseList(transactions.expenses, currentMonth);
+  createCharts(transactions.expenses, currentMonth);
 };
 
 cancelButton.addEventListener("click", closeDialog);
@@ -54,16 +56,18 @@ selectedMonth.addEventListener("change", onMonthSelectChange);
 
 function init() {
   // Get the expenses from local storage
-  const expensesFromLocalStorage = JSON.parse(localStorage.getItem("expenses"));
+  const transactionsFromLocalStorage = JSON.parse(
+    localStorage.getItem("transactions")
+  );
   // Initialize the selected month
   selectedMonth.value = currentMonth;
 
   // Create the expense list
-  if (expensesFromLocalStorage) {
-    expenses = expensesFromLocalStorage;
+  if (transactionsFromLocalStorage) {
+    setTransactions(transactionsFromLocalStorage);
 
-    createExpenseList(expenses, currentMonth);
-    createCharts(expenses, currentMonth);
+    createExpenseList(transactions.expenses, currentMonth);
+    createCharts(transactions.expenses, currentMonth);
   }
 }
 

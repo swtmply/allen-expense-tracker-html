@@ -14,6 +14,7 @@ The application uses the following:
 - Javascript Arrays
 - Javascript Functions
 - Javascript Modules
+- ChartJS
 
 ### How to use
 
